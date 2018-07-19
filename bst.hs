@@ -6,6 +6,11 @@ empty _ = False
 treeSize NIL = 0
 treeSize (Node left a right) = 1 + treeSize left + treeSize right
 
+contains NIL _ = False
+contains (Node left current right) node
+ | current == node = True
+ | node < current = contains left node
+ | node > current = contains right node 
 
 insert NIL node = Node NIL node NIL
 insert (Node  left current right) node 
@@ -24,7 +29,6 @@ deleteX (Node t1 v NIL) = t1
 deleteX (Node t1 v t2) = (Node t1 v2 t2) --(delete t2 v2))
  where 
   v2 = leftistElement t2
-
 
 leftistElement (Node NIL v _) = v
 leftistElement (Node t1 _ _) = leftistElement t1
@@ -45,5 +49,5 @@ main = do
  let a = insert NIL 5
  let a2 = insert a 3
  let a3 = insert a2 8
- let b = posOrder a3
+ let b = contains a3 7
  print b
