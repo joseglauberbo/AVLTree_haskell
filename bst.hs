@@ -28,15 +28,22 @@ deleteX (Node t1 v t2) = (Node t1 v2 t2) --(delete t2 v2))
 
 leftistElement (Node NIL v _) = v
 leftistElement (Node t1 _ _) = leftistElement t1
-order NIL = []
-order (Node left a right) =  order left ++ [a] ++ order right
 
+--Ordenação
+
+inOrder NIL = []
+inOrder (Node left current right) = inOrder left ++ [current] ++ inOrder right
+
+preOrder NIL = []
+preOrder (Node left current right) = [current] ++ preOrder left ++ preOrder right
+
+posOrder NIL = []
+posOrder (Node left current right) = posOrder left ++ posOrder right ++ [current]
 
 main::IO()
-main = do
+main = do 
  let a = insert NIL 5
  let a2 = insert a 3
- let a3 = insert a 8
- let b = order a3
-
+ let a3 = insert a2 8
+ let b = posOrder a3
  print b
