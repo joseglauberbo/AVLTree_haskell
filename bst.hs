@@ -1,7 +1,5 @@
-module BST (BinarySearchTree(NIL), BinarySearchTree(Node), height) 
-
-where
-data BinarySearchTree a = NIL | Node (BinarySearchTree a) Int (BinarySearchTree a) deriving (Eq,Show)
+module BST  where
+data BinarySearchTree a = NIL | Node (BinarySearchTree a) a (BinarySearchTree a) deriving (Eq,Show)
 
 empty NIL = True
 empty _ = False
@@ -29,17 +27,14 @@ delete (Node t1 v t2) x
  | x  < v = Node (delete t2 x) v t2
  | x  > v = Node t1 v (delete t2 x)
 
-deleteX (Node NIL v t2) = t2
-deleteX (Node t1 v NIL) = t1
-deleteX (Node t1 v t2) = (Node t1 v2 t2) --(delete t2 v2))
- where 
-  v2 = leftistElement t2
+deleteX (Node NIL current NIL) = NIL
+deleteX (Node NIL current right) = right
+deleteX (Node left current NIL) = left
+deleteX (Node left current right) = Node left (successor (Node left current right)) (delete right (successor (Node left current right)))
 
 height NIL = 0
 height (Node left current right) = 1 + max (height left) (height right)
 
-leftistElement (Node NIL v _) = v
-leftistElement (Node t1 _ _) = leftistElement t1
 
 --Ordenação
 
@@ -54,19 +49,17 @@ posOrder (Node left current right) = posOrder left ++ posOrder right ++ [current
 
 --Mínimo e máximo
 
-minimo NIL = 0
 minimo (Node NIL current NIL) = current
 minimo (Node left current right) = minimo (left)
 
-maximo NIL  = 0
 maximo (Node NIL current NIL) = current
 maximo (Node left current right) = maximo (right)
 
 --Sucessor e Predecessor
 
-predecessor NIL = NIL
+predecessor (Node left a right) = maximo left
 
-sucessor NIL = NIL
+successor (Node left a right) = minimo right 
 
 main::IO()
 main = do 
