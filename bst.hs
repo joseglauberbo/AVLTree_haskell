@@ -1,3 +1,6 @@
+module BST (BinarySearchTree(NIL), BinarySearchTree(Node), height) 
+
+where
 data BinarySearchTree a = NIL | Node (BinarySearchTree a) Int (BinarySearchTree a) deriving (Eq,Show)
 
 empty NIL = True
