@@ -19,20 +19,3 @@ insert (BST.Node left current right) node
     | node > current  = (BST.Node left current rightInsertion)
         where leftInsertion = insert left node
               rightInsertion = insert right node
-
-delete L d = L
-delete (N v L L) d = if v == d then L else (N v L L)
-delete (N v t L) d = if v == d then t else (N v t L)
-delete (N v L u) d = if v == d then u else (N v L u)
-delete (N v t u) d
-    | v == d                            = (N mu t dmin)
-    | v > d && abs (balFactor dt u) < 2 = (N v dt u)
-    | v < d && abs (balFactor t du) < 2 = (N v t du)
-    | v > d && (balFactor (left u) (right u)) < 0 = balanceRR (N v dt u) 
-    | v < d && (balFactor (left t) (right t)) > 0 = balanceLL (N v t du)
-    | v > d                                       = balanceRL (N v dt u)
-    | v < d                                       = balanceLR (N v t du)
-        where dmin = delete u mu
-              dt   = delete t d
-              du   = delete u d
-              mu   = btmin u
