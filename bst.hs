@@ -1,5 +1,5 @@
 module BST  where
-data BinarySearchTree a = NIL | Node (BinarySearchTree a) a (BinarySearchTree a) deriving (Eq,Show)
+data BinarySearchTree a = NIL | Node (BinarySearchTree a) Int (BinarySearchTree a) deriving (Eq,Show)
 
 empty NIL = True
 empty _ = False
@@ -35,7 +35,6 @@ deleteX (Node left current right) = Node left (successor (Node left current righ
 height NIL = 0
 height (Node left current right) = 1 + max (height left) (height right)
 
-
 --Ordenação
 
 inOrder NIL = []
@@ -60,15 +59,4 @@ maximo (Node left current right) = maximo (right)
 predecessor (Node left a right) = maximo left
 
 successor (Node left a right) = minimo right 
-
-main::IO()
-main = do 
- let a = insert NIL 5
- let a2 = insert a 3
- let a3 = insert a2 8
- let a4 = insert a3 10
- let a6 = insert a4 110
- let b = maximo a6
-
- print b
  
