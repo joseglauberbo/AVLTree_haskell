@@ -1,13 +1,30 @@
 module AVL where 
 import qualified BST as BST
 
+--Rotações
+balanceFactor :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a) -> Int
 balanceFactor left right = (BST.height left) - (BST.height right)
 
+balanceLL :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
 balanceLL (BST.Node (BST.Node leftLeftSon leftSon leftRightSon) node rightSon) = (BST.Node leftLeftSon leftSon (BST.Node leftRightSon node rightSon))
+
+balanceLR :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
 balanceLR (BST.Node (BST.Node leftLeftSon leftSon (BST.Node lrlSon leftRightSon lrrSon)) node rightSon) = (BST.Node (BST.Node leftLeftSon leftSon lrlSon) leftRightSon (BST.Node lrrSon node rightSon))
+
+balanceRL :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
 balanceRL (BST.Node leftSon node (BST.Node (BST.Node rllSon rightLeftSon rlrSon) rightSon rightRightSon)) = (BST.Node (BST.Node leftSon node rllSon) rightLeftSon (BST.Node rlrSon rightSon rightRightSon)) 
+
+balanceRR :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
 balanceRR (BST.Node leftSon node (BST.Node rightLeftSon rightSon rightRightSon)) = (BST.Node (BST.Node leftSon node rightLeftSon) rightSon rightRightSon)
- 
+
+--controle
+leftNode :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
+leftNode (BST.Node left _ _) = left
+
+rightNode :: (BST.BinarySearchTree a) -> (BST.BinarySearchTree a)
+rightNode (BST.Node _ _ right) = right
+
+--operações básicas
 insert :: (BST.BinarySearchTree a) -> Int -> (BST.BinarySearchTree a)
 insert BST.NIL node = (BST.Node BST.NIL node BST.NIL)
 insert (BST.Node left current right) node
@@ -39,5 +56,3 @@ delete (BST.Node left node right) x
               rightDeletion = delete right x
               maxRight = BST.maximo right
 
-leftNode (BST.Node left _ _) = left
-rightNode (BST.Node _ _ right) = right
