@@ -22,10 +22,10 @@ insert (Node  left current right) node
  | current > node = Node (insert left node) current right
 
 delete NIL _ = NIL
-delete (Node t1 v t2) x  
- | x == v = deleteX (Node t1 v t2)
- | x  < v = Node (delete t2 x) v t2
- | x  > v = Node t1 v (delete t2 x)
+delete (Node left current right) x  
+ | x == current = deleteX (Node left current right)
+ | x  < current = Node (delete right x) current right
+ | x  > current = Node left current (delete right x)
 
 deleteX (Node NIL current NIL) = NIL
 deleteX (Node NIL current right) = right
