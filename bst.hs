@@ -73,4 +73,5 @@ predecessor (Node left a right) = maximo left
 
 successor :: (BinarySearchTree a) -> Int
 successor (Node left a right) = minimo right 
- 
+
+btmin = head.inOrder
