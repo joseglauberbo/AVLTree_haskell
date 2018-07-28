@@ -46,15 +46,16 @@ delete (BST.Node BST.NIL node BST.NIL) x = if node == x then BST.NIL else (BST.N
 delete (BST.Node left node BST.NIL) x = if node == x then left else (BST.Node left node BST.NIL)
 delete (BST.Node BST.NIL node right) x = if node == x then right else (BST.Node BST.NIL node right)
 delete (BST.Node left node right) x
-    | node == x = (BST.Node left maxRight maxRightDeletion)
+    | node == x = (BST.Node maxLeftDeletion minLeft right)
+    
     | node > x && abs (balanceFactor leftDeletion right) < 2 = (BST.Node leftDeletion node right)
     | node < x && abs (balanceFactor left rightDeletion) < 2 = (BST.Node left node rightDeletion) 
     | node > x && (balanceFactor (leftNode right) (rightNode right)) < 0 = balanceRR (BST.Node leftDeletion node right)
     | node < x && (balanceFactor (leftNode left) (rightNode left)) > 0 = balanceLL (BST.Node left node rightDeletion)
     | node > x = balanceRL (BST.Node leftDeletion node right)
     | node < x = balanceLR (BST.Node left node rightDeletion)
-        where maxRightDeletion = delete right maxRight
+        where maxLeftDeletion = delete left minLeft
               leftDeletion = delete left x
               rightDeletion = delete right x
-              maxRight = BST.btmin right
+              minLeft = BST.maximo left
 
