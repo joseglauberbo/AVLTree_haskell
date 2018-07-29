@@ -47,7 +47,6 @@ delete (BST.Node left node BST.NIL) x = if node == x then left else (BST.Node le
 delete (BST.Node BST.NIL node right) x = if node == x then right else (BST.Node BST.NIL node right)
 delete (BST.Node left node right) x
     | node == x = (BST.Node maxLeftDeletion minLeft right)
-    
     | node > x && abs (balanceFactor leftDeletion right) < 2 = (BST.Node leftDeletion node right)
     | node < x && abs (balanceFactor left rightDeletion) < 2 = (BST.Node left node rightDeletion) 
     | node > x && (balanceFactor (leftNode right) (rightNode right)) < 0 = balanceRR (BST.Node leftDeletion node right)

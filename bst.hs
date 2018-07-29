@@ -59,18 +59,18 @@ posOrder (Node left current right) = posOrder left ++ posOrder right ++ [current
 --Mínimo e máximo
 
 minimo :: (BinarySearchTree a) -> Int
-minimo (Node NIL current NIL) = current
+minimo (Node NIL current _) = current
 minimo (Node left current right) = minimo (left)
 
 maximo :: (BinarySearchTree a) -> Int
-maximo (Node NIL current NIL) = current
+maximo (Node _ current NIL) = current
 maximo (Node left current right) = maximo (right)
 
 --Sucessor e Predecessor
 
 predecessor :: (BinarySearchTree a) -> Int
-predecessor (Node left a right) = maximo left
+predecessor (Node left current right) = maximo left
 
 successor :: (BinarySearchTree a) -> Int
-successor (Node left a right) = minimo right 
+successor (Node left current right) = minimo right 
 
