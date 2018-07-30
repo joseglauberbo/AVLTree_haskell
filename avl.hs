@@ -39,12 +39,12 @@ insert (BST.Node left current right) node
     | node > current  = (BST.Node left current rightInsertion)
         where leftInsertion = insert left node
               rightInsertion = insert right node
-
+              
 delete :: (BST.BinarySearchTree a) -> Int -> (BST.BinarySearchTree a)
 delete BST.NIL x = BST.NIL
 delete (BST.Node BST.NIL node BST.NIL) x = if node == x then BST.NIL else (BST.Node BST.NIL node BST.NIL)
-delete (BST.Node left node BST.NIL) x = if node == x then left else (BST.Node left node BST.NIL)
-delete (BST.Node BST.NIL node right) x = if node == x then right else (BST.Node BST.NIL node right)
+delete (BST.Node left node BST.NIL) x = if node == x then left else (BST.Node (delete left x) node BST.NIL)
+delete (BST.Node BST.NIL node right) x = if node == x then right else (BST.Node BST.NIL node (delete right x)) 
 delete (BST.Node left node right) x
     | node == x = (BST.Node maxLeftDeletion minLeft right)
     | node > x && abs (balanceFactor leftDeletion right) < 2 = (BST.Node leftDeletion node right)
